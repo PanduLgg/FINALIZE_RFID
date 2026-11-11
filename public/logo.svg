@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220" width="100%" height="100%" fill="none">
+  <!-- GDS ICON LOGO -->
+  <g id="GDS-MARK">
+    <!-- Letter G (Blue) -->
+    <path
+      d="M 175 18 C 132 18 102 44 102 78 C 102 112 132 138 175 138 L 188 138 L 188 96 L 158 96 L 158 68 L 222 68 L 222 128 C 208 138 190 144 168 144 C 114 144 68 114 68 78 C 68 40 114 10 175 10 C 206 10 228 18 244 30 L 216 54 C 202 42 190 18 175 18 Z"
+      fill="#323C99"
+    />
+
+    <!-- Letter D (Maroon with inner medallion) -->
+    <g id="Letter-D">
+      <path
+        d="M 235 10 L 295 10 C 348 10 376 38 376 77 C 376 116 348 144 295 144 L 235 144 Z"
+        fill="#8B1D24"
+      />
+      <!-- White Ring / Circle -->
+      <circle cx="298" cy="77" r="38" fill="#8B1D24" stroke="#FFFFFF" stroke-width="3.5" />
+      
+      <!-- Student Silhouette (Right-facing with hijab) -->
+      <path
+        d="M 284 94 C 284 76 291 69 301 61 C 305 58 310 58 312 61 C 314 64 313 68 310 71 C 307 74 304 77 304 81 C 304 85 308 88 311 91 C 314 94 311 101 301 101 C 291 101 284 98 284 94 Z"
+        fill="#FFFFFF"
+      />
+      <path
+        d="M 276 96 C 286 96 296 90 304 83 C 296 79 286 78 276 83 Z"
+        fill="#FFFFFF"
+      />
+      <path
+        d="M 292 50 C 302 50 312 55 316 62 C 312 60 304 57 296 58 Z"
+        fill="#FFFFFF"
+      />
+
+      <!-- Motto Arc Text: SAYA MAMPU MEMIMPIN... -->
+      <path id="archMotto" d="M 268 86 A 32 32 0 0 0 328 86" fill="none" />
+      <text fill="#FFFFFF" font-size="6.5" font-family="'Arial', sans-serif" font-weight="900" letter-spacing="0.8">
+        <textPath href="#archMotto" startOffset="50%" text-anchor="middle">
+          SAYA MAMPU MEMIMPIN...
+        </textPath>
+      </text>
+    </g>
+
+    <!-- Letter S (Blue) -->
+    <path
+      d="M 440 10 L 532 10 L 532 38 L 476 38 C 458 38 448 45 448 55 C 448 65 458 72 478 78 L 498 84 C 526 92 538 106 538 126 C 538 148 518 162 476 162 L 396 162 L 396 134 L 460 134 C 476 134 486 128 486 118 C 486 108 476 102 458 96 L 438 90 C 414 82 400 68 400 48 C 400 24 420 10 440 10 Z"
+      fill="#323C99"
+    />
+  </g>
+
+  <!-- MIDDLE ROW: SMK EKONOMIKA (Purple #9B328D) -->
+  <text
+    x="300"
+    y="172"
+    font-family="system-ui, -apple-system, 'Arial Black', sans-serif"
+    font-size="46"
+    font-weight="900"
+    fill="#9B328D"
+    text-anchor="middle"
+    letter-spacing="1.5"
+  >
+    SMK EKONOMIKA
+  </text>
+
+  <!-- BOTTOM ROW: Membentuk Siswa DIGJAYA (Maroon #8B1D24) -->
+  <text
+    x="590"
+    y="208"
+    font-family="system-ui, -apple-system, 'Arial', sans-serif"
+    font-size="22"
+    font-weight="900"
+    font-style="italic"
+    fill="#8B1D24"
+    text-anchor="end"
+    letter-spacing="0.5"
+  >
+    Membentuk Siswa DIGJAYA
+  </text>
+</svg>

@@ -1,0 +1,6 @@
+{
+  "name": "Smart RFID",
+  "description": "Sistem Presensi Kartu RFID Real-time 2 Titik Pintu dengan Pencegahan Double Tap, Audio Chime, Monitor Kiosk, dan Management Admin.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,165 @@
+{
+  "entities": {
+    "Student": {
+      "title": "Student",
+      "description": "Student master data entity for RFID Attendance System",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique student identifier" },
+        "name": { "type": "string", "description": "Student full name", "maxLength": 200 },
+        "nisn": { "type": "string", "description": "Nomor Induk Siswa Nasional (NISN)", "maxLength": 50 },
+        "class": { "type": "string", "description": "Class / Grade name", "maxLength": 100 },
+        "rfidUid": { "type": "string", "description": "RFID Card UID code", "maxLength": 100 },
+        "gender": { "type": "string", "enum": ["L", "P"], "description": "Gender Laki-laki / Perempuan" },
+        "parentPhone": { "type": "string", "description": "Parent WhatsApp phone number", "maxLength": 50 },
+        "photoUrl": { "type": "string", "description": "Student photo avatar URL", "maxLength": 1000 },
+        "isActive": { "type": "boolean", "description": "Student active status" },
+        "createdAt": { "type": "string", "description": "ISO timestamp of creation" },
+        "updatedAt": { "type": "string", "description": "ISO timestamp of last update" }
+      },
+      "required": ["id", "name", "nisn", "class", "rfidUid"]
+    },
+    "Teacher": {
+      "title": "Teacher",
+      "description": "Teacher / Staff master data entity for RFID Attendance System",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique teacher identifier" },
+        "name": { "type": "string", "description": "Teacher full name", "maxLength": 200 },
+        "nip": { "type": "string", "description": "Nomor Induk Pegawai (NIP / NUPTK)", "maxLength": 50 },
+        "position": { "type": "string", "description": "Teaching subject or official position", "maxLength": 100 },
+        "rfidUid": { "type": "string", "description": "RFID Card UID code", "maxLength": 100 },
+        "gender": { "type": "string", "enum": ["L", "P"], "description": "Gender Laki-laki / Perempuan" },
+        "phone": { "type": "string", "description": "Teacher phone number", "maxLength": 50 },
+        "avatarUrl": { "type": "string", "description": "Teacher photo avatar URL", "maxLength": 1000 }
+      },
+      "required": ["id", "name", "nip", "position", "rfidUid"]
+    },
+    "AttendanceRecord": {
+      "title": "AttendanceRecord",
+      "description": "Individual daily student / teacher RFID attendance transaction",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique attendance record ID" },
+        "userType": { "type": "string", "enum": ["STUDENT", "TEACHER"], "description": "Type of user" },
+        "studentId": { "type": "string", "description": "Reference to student ID" },
+        "studentName": { "type": "string", "description": "Student name at time of tap", "maxLength": 200 },
+        "nisn": { "type": "string", "description": "Student NISN at time of tap", "maxLength": 50 },
+        "studentClass": { "type": "string", "description": "Student class name", "maxLength": 100 },
+        "teacherId": { "type": "string", "description": "Reference to teacher ID" },
+        "teacherName": { "type": "string", "description": "Teacher name at time of tap", "maxLength": 200 },
+        "nip": { "type": "string", "description": "Teacher NIP at time of tap", "maxLength": 50 },
+        "teacherPosition": { "type": "string", "description": "Teacher subject/position", "maxLength": 100 },
+        "rfidUid": { "type": "string", "description": "RFID tag scanned", "maxLength": 100 },
+        "timestamp": { "type": "string", "description": "ISO timestamp of scan" },
+        "timeFormatted": { "type": "string", "description": "HH:mm:ss formatted time" },
+        "dateFormatted": { "type": "string", "description": "YYYY-MM-DD formatted date" },
+        "type": { "type": "string", "enum": ["MASUK", "PULANG"], "description": "Attendance session type" },
+        "status": { "type": "string", "enum": ["TEPAT_WAKTU", "TERLAMBAT", "PULANG", "IZIN", "SAKIT", "ALPHA"], "description": "Attendance status" },
+        "gateLocation": { "type": "string", "description": "Gate location identifier", "maxLength": 50 },
+        "gateName": { "type": "string", "description": "Gate display name", "maxLength": 100 },
+        "lateMinutes": { "type": "number", "description": "Minutes late if applicable" },
+        "notes": { "type": "string", "description": "Additional notes or remarks", "maxLength": 500 },
+        "isManualOverride": { "type": "boolean", "description": "Whether record was manually created by teacher" }
+      },
+      "required": ["id", "rfidUid", "timestamp", "dateFormatted", "type", "status"]
+    },
+    "ClassInfo": {
+      "title": "ClassInfo",
+      "description": "School class entity",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique class identifier / name" },
+        "name": { "type": "string", "description": "Class name", "maxLength": 100 },
+        "grade": { "type": "string", "description": "Grade level (e.g. X, XI, XII)", "maxLength": 20 },
+        "major": { "type": "string", "description": "Major / Department", "maxLength": 100 }
+      },
+      "required": ["id", "name"]
+    },
+    "SchoolScheduleSettings": {
+      "title": "SchoolScheduleSettings",
+      "description": "School operational schedule and configuration",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Settings key identifier" },
+        "schoolName": { "type": "string", "description": "School official name", "maxLength": 200 },
+        "schoolAddress": { "type": "string", "description": "School address", "maxLength": 500 },
+        "entryStartTime": { "type": "string", "description": "HH:mm entry window start" },
+        "entryEndTime": { "type": "string", "description": "HH:mm entry window end" },
+        "entryDeadlineTime": { "type": "string", "description": "HH:mm on-time deadline" },
+        "exitStartTime": { "type": "string", "description": "HH:mm exit window start" },
+        "exitEndTime": { "type": "string", "description": "HH:mm exit window end" },
+        "cooldownSeconds": { "type": "number", "description": "RFID double-tap cooldown duration" },
+        "updatedAt": { "type": "string", "description": "ISO timestamp of last setting change" }
+      },
+      "required": ["id", "schoolName", "entryStartTime", "entryDeadlineTime", "exitStartTime", "exitEndTime"]
+    },
+    "SystemUser": {
+      "title": "SystemUser",
+      "description": "System accounts authorized to log into Admin or Guru Piket dashboards",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique system user identifier" },
+        "username": { "type": "string", "description": "Login username", "maxLength": 100 },
+        "password": { "type": "string", "description": "Login password", "maxLength": 200 },
+        "name": { "type": "string", "description": "Full name / display name", "maxLength": 200 },
+        "role": { "type": "string", "enum": ["admin", "guru_piket", "kesiswaan"], "description": "User role access" },
+        "allowedFeatures": { "type": "array", "description": "List of allowed feature keys permitted for this user" },
+        "phone": { "type": "string", "description": "Phone number", "maxLength": 50 },
+        "email": { "type": "string", "description": "Email address", "maxLength": 200 },
+        "isActive": { "type": "boolean", "description": "Whether account is active" },
+        "lastLogin": { "type": "string", "description": "ISO timestamp of last login" },
+        "createdAt": { "type": "string", "description": "ISO timestamp of creation" },
+        "updatedAt": { "type": "string", "description": "ISO timestamp of last update" }
+      },
+      "required": ["id", "username", "password", "name", "role", "isActive"]
+    },
+    "DailyAttendanceRecap": {
+      "title": "DailyAttendanceRecap",
+      "description": "Daily attendance archived recap snapshot for historical reporting",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique recap identifier (e.g. recap-YYYY-MM-DD)" },
+        "dateFormatted": { "type": "string", "description": "Date formatted YYYY-MM-DD" },
+        "dayName": { "type": "string", "description": "Indonesian day name" },
+        "timestamp": { "type": "string", "description": "ISO timestamp when archived" },
+        "savedBy": { "type": "string", "description": "Actor who triggered archive (e.g. AUTO_DAY_ROLLOVER)" },
+        "studentStats": { "type": "object", "description": "Calculated student attendance statistics" },
+        "teacherStats": { "type": "object", "description": "Calculated teacher attendance statistics" },
+        "classSummaries": { "type": "array", "description": "Per-class breakdown summaries" },
+        "totalRecordsCount": { "type": "number", "description": "Total attendance records on that day" }
+      },
+      "required": ["id", "dateFormatted", "dayName", "timestamp", "studentStats", "teacherStats"]
+    }
+  },
+  "firestore": {
+    "/students/{studentId}": {
+      "schema": "Student",
+      "description": "Registered students master collection"
+    },
+    "/teachers/{teacherId}": {
+      "schema": "Teacher",
+      "description": "Registered teachers master collection"
+    },
+    "/attendance_records/{recordId}": {
+      "schema": "AttendanceRecord",
+      "description": "Log of student and teacher attendance RFID taps"
+    },
+    "/classes/{classId}": {
+      "schema": "ClassInfo",
+      "description": "Registered school classes"
+    },
+    "/settings/{settingId}": {
+      "schema": "SchoolScheduleSettings",
+      "description": "School operational schedule and global settings"
+    },
+    "/system_users/{userId}": {
+      "schema": "SystemUser",
+      "description": "Master collection of system users authorized to access admin and guru piket dashboards"
+    },
+    "/daily_attendance_recap/{recapId}": {
+      "schema": "DailyAttendanceRecap",
+      "description": "Historical snapshots of daily attendance summaries"
+    }
+  }
+}

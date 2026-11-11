@@ -1,0 +1,86 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128;
+    }
+
+    // Default deny all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Students Collection
+    match /students/{studentId} {
+      allow read: if true;
+      allow create, update: if isValidId(studentId) 
+        && request.resource.data.name is string && request.resource.data.name.size() <= 200
+        && request.resource.data.nisn is string && request.resource.data.nisn.size() <= 50
+        && request.resource.data.class is string && request.resource.data.class.size() <= 100
+        && request.resource.data.rfidUid is string && request.resource.data.rfidUid.size() <= 100;
+      allow delete: if true;
+    }
+
+    // Teachers Collection
+    match /teachers/{teacherId} {
+      allow read: if true;
+      allow create, update: if isValidId(teacherId) 
+        && request.resource.data.name is string && request.resource.data.name.size() <= 200
+        && request.resource.data.nip is string && request.resource.data.nip.size() <= 50
+        && request.resource.data.position is string && request.resource.data.position.size() <= 100
+        && request.resource.data.rfidUid is string && request.resource.data.rfidUid.size() <= 100;
+      allow delete: if true;
+    }
+
+    // Attendance Records Collection
+    match /attendance_records/{recordId} {
+      allow read: if true;
+      allow create, update: if isValidId(recordId);
+      allow delete: if true;
+    }
+
+    // Classes Collection
+    match /classes/{classId} {
+      allow read: if true;
+      allow create, update: if isValidId(classId)
+        && request.resource.data.name is string && request.resource.data.name.size() <= 100;
+      allow delete: if true;
+    }
+
+    // Settings Collection
+    match /settings/{settingId} {
+      allow read: if true;
+      allow create, update: if isValidId(settingId)
+        && request.resource.data.schoolName is string && request.resource.data.schoolName.size() <= 200;
+      allow delete: if true;
+    }
+
+    // System Users Collection (Admin / Guru Piket / Kesiswaan Accounts)
+    match /system_users/{userId} {
+      allow read: if true;
+      allow create, update: if isValidId(userId)
+        && request.resource.data.username is string && request.resource.data.username.size() <= 100
+        && request.resource.data.name is string && request.resource.data.name.size() <= 200
+        && request.resource.data.role in ['admin', 'guru_piket', 'kesiswaan']
+        && (!('allowedFeatures' in request.resource.data) || request.resource.data.allowedFeatures is list);
+      allow delete: if true;
+    }
+
+    // Late Follow-ups Collection (Tindak Lanjut Siswa Terlambat)
+    match /late_followups/{followUpId} {
+      allow read: if true;
+      allow create, update: if isValidId(followUpId);
+      allow delete: if true;
+    }
+
+    // Daily Attendance Recap Collection (Arsip Rekap Harian Otomatis)
+    match /daily_attendance_recap/{recapId} {
+      allow read: if true;
+      allow create, update: if isValidId(recapId);
+      allow delete: if true;
+    }
+  }
+}
